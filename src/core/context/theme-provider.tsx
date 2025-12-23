@@ -1,4 +1,3 @@
-// src/components/theme-provider.tsx
 import { createContext, useContext, useEffect, useState } from "react"
 
 type Theme = "dark" | "light" | "system"
@@ -19,7 +18,6 @@ const initialState: ThemeProviderState = {
   setTheme: () => null,
 }
 
-// 1. 创建 Context
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
@@ -48,7 +46,6 @@ export function ThemeProvider({
     root.classList.add(theme)
   }, [theme])
 
-  // !!关键点 1!!: 显式定义要传递给子组件的对象
   const providerValue = {
     theme,
     setTheme: (theme: Theme) => {
@@ -58,7 +55,6 @@ export function ThemeProvider({
   }
 
   return (
-    // !!关键点 2!!: 必须显式传递 value={providerValue}
     <ThemeProviderContext.Provider {...props} value={providerValue}>
       {children}
     </ThemeProviderContext.Provider>

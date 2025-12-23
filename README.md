@@ -73,3 +73,32 @@ export default defineConfig([
   },
 ])
 ```
+
+
+src/
+├─ features/                 <-- 功能模块目录，每个页面模块一个文件夹
+│   ├─ dashboard/
+│   │   ├─ Dashboard.tsx      <-- 页面组件
+│   │   └─ dashboardRoute.ts  <-- 可选，模块路由配置
+│   ├─ bulletin/
+│   │   ├─ Bulletin.tsx
+│   │   └─ bulletinRoute.ts
+│   ├─ passport/
+│   │   ├─ login/
+│   │   │   └─ UserLogin.tsx
+│   │   └─ lock/
+│   │       └─ UserLock.tsx
+│   └─ status-public/
+│       └─ StatusPublic.tsx
+├─ layout/
+│   ├─ basic/
+│   │   └─ LayoutBasic.tsx
+│   ├─ blank/
+│   │   └─ LayoutBlank.tsx
+│   └─ passport/
+│       └─ LayoutPassport.tsx
+├─ routes/
+│   ├─ routesConfig.ts        <-- 动态路由组合
+│   ├─ componentMap.ts        <-- 页面组件映射
+│   └─ renderRoutes.tsx       <-- 渲染动态路由函数
+└─ AppRouter.tsx              <-- 路由入口，使用 RouterWrapper
