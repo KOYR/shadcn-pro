@@ -1,8 +1,17 @@
 // componentMap.ts
+import PageNotFound from "@/components/error/PageNotFound";
 import { lazy } from "react";
+const isDev = import.meta.env.DEV;
 
-export const componentMap: Record<string, React.LazyExoticComponent<any>> = {
-  Dashboard: lazy(() => import("../features/dashboard/Dashboard")),
+export const componentMap: Record<string, React.ComponentType<any>> = {
+  Dashboard: lazy(() => import("@/features/dashboard/Dashboard")),
+  // Lifecycle: lazy(() => import("@/features/lifecycle/LifecyclePage")),
+  // Analytics: lazy(() => import("@/features/analytics/AnalyticsPage")),
+  // MonitorList: lazy(() => import("@/features/monitors/MonitorListPage")),
+  // MySQLPage: lazy(() => import("@/features/monitors/mysql/MySQLPage")),
+  // RedisPage: lazy(() => import("@/features/monitors/redis/RedisPage")),
+  // Settings: lazy(() => import("@/features/settings/SettingsPage")),
+  PageNotFound: isDev ? PageNotFound : PageNotFound,
   //   Bulletin: lazy(() => import("./features/bulletin/Bulletin")),
   //   StatusPublic: lazy(() => import("./features/status-public/StatusPublic")),
   //   UserLogin: lazy(() => import("./features/passport/login/UserLogin")),

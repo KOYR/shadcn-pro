@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar"
 // import { NavDocuments } from "@/app/(examples)/dashboard/components/nav-documents"
 import { NavMain } from "@/layout/basic/nav-main"
+import { routes, type RemoteRoute } from "@/routes/routesConfig"
 // import { NavSecondary } from "@/layout/basic/nav-secondary"
 // import { NavUser } from "@/layout/basic/nav-user"
 
@@ -132,7 +133,24 @@ const data = {
     ],
 }
 
+// 你的递归转换函数补充
+function mapRoutesToNav(nodes: RemoteRoute[]): any[] {
+    return nodes
+        .filter(route => route.title && route.path !== "")
+        .map(route => ({
+            title: route.title,
+            // 确保 path 是完整路径
+            url: route.path.startsWith('/') ? route.path : `/${route.path}`,
+            // 传入图标组件
+            icon: route.icon ? React.createElement(route.icon, { className: "size-4" }) : null,
+            // 如果还有子路由，递归处理
+            items: route.children ? mapRoutesToNav(route.children) : undefined
+        }));
+}
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const rootRoute = routes.find(r => r.layout === 'basic');
+    const navMainData = rootRoute?.children ? mapRoutesToNav(rootRoute.children) : [];
+
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
@@ -151,7 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                <NavMain items={navMainData} />
                 {/* <NavDocuments items={data.documents} /> */}
                 {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
             </SidebarContent>
